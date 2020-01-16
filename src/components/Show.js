@@ -22,12 +22,12 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: "56.25%" // 16:9
   },
-  evaluation: { fontSize: 11, color: "#000" },
-  text: {
-    overflow: hidden,
-    textOverflow: ellipsis,
-    whiteSpace: nowrap
-  }
+  evaluation: { fontSize: 11, color: "#000" }
+  // text: {
+  //   overflow: hidden,
+  //   textOverflow: ellipsis,
+  //   whiteSpace: nowrap
+  // }
 }));
 
 const months = [
@@ -67,9 +67,7 @@ export default props => {
                     : lightGreen[100 * (8 - (15 - parseInt(item.score)))]
               }}
             >
-              <div className={classes.evaluation}>
-                {parseInt(item.score) / 2}/10
-              </div>
+              <div className={classes.evaluation}>{parseInt(item.score) / 2}/10</div>
             </Avatar>
           }
           action={
@@ -78,9 +76,7 @@ export default props => {
             </IconButton>
           }
           title={item.show.type}
-          subheader={
-            months[parseInt(date[1]) - 1] + " " + date[2] + ", " + date[0]
-          }
+          subheader={months[parseInt(date[1]) - 1] + " " + date[2] + ", " + date[0]}
         />
         <CardMedia
           className={classes.media}
@@ -95,14 +91,9 @@ export default props => {
           <Typography gutterBottom variant="h5" component="h2">
             {item.show.name}
           </Typography>
-          <Typography
-            className={classes.text}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography className={classes.text} variant="body2" color="textSecondary" component="p">
+            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents
+            except Antarctica
           </Typography>
         </CardContent>
 
