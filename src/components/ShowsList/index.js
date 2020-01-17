@@ -44,8 +44,8 @@ function App(props) {
   }
   if (error) {
     return (
-      <Button variant="contained" color="secondary">
-        ahum
+      <Button onClick={getShows} variant="contained" color="secondary">
+        Retry
       </Button>
     );
   }
@@ -63,29 +63,18 @@ function App(props) {
   return (
     <Container className={classes.root}>
       <Grid container justify="center" spacing={2}>
-        {shows.map((item, id) => {
+        {shows.map((item, index) => {
           const filter = props.useFilter;
 
           if (!filter) {
-            return (
-              <ShowListItem
-                key={id}
-                item={item}
-                setAnchorEl={setAnchorEl}
-              ></ShowListItem>
-            );
+            return <ShowListItem key={index} item={item} setAnchorEl={setAnchorEl}></ShowListItem>;
           } else {
             const name = item.show.name.toLowerCase();
             if (name.includes(filter)) {
-              return (
-                <ShowListItem
-                  key={id}
-                  item={item}
-                  setAnchorEl={setAnchorEl}
-                ></ShowListItem>
-              );
+              return <ShowListItem key={index} item={item} setAnchorEl={setAnchorEl}></ShowListItem>;
             }
           }
+          return null;
         })}
 
         <Popover

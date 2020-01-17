@@ -11,8 +11,18 @@ import { useHistory } from "react-router-dom";
 export default props => {
   const classes = useStyles();
   const history = useHistory();
-  const [filtre, setFilter] = React.useState(null);
-
+  const [searchValue, setSearchValue] = React.useState(null);
+  function handleInputChange(event) {
+    const f = event.target.value.trim();
+    if (f.length > 0) setSearchValue(f.toLowerCase());
+    else setSearchValue(null);
+  }
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      props.setShowsFilter(searchValue);
+      history.push("/");
+    }
+  }
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
@@ -30,17 +40,8 @@ export default props => {
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              onChange={event => {
-                const f = event.target.value.trim();
-                if (f.length > 0) setFilter(f.toLowerCase());
-                else setFilter(null);
-              }}
-              onKeyDown={e => {
-                if (e.key === "Enter") {
-                  props.setUseFilter(filtre);
-                  history.push("/");
-                }
-              }}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               inputProps={{ "aria-label": "search" }}
             />
           </div>
