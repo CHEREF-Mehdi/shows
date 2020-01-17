@@ -17,9 +17,7 @@ export default props => {
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6">
-            {props.title}
-          </Typography>
+          <Typography className={classes.title} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
