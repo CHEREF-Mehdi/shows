@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { blueGrey } from "@material-ui/core/colors";
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
   card: {
     width: 210,
-    height: 400,
+    height: 390,
     backgroundColor: blueGrey[700]
   },
   media: {
@@ -13,7 +13,24 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: "center center"
   },
   evaluation: { fontSize: 11, color: blueGrey[900] },
-  action: { justifyContent: "center" }
+  action: { background: blueGrey[900], justifyContent: "center" }
 }));
 
-export default useStyles;
+export const styles = {
+  wightColor: { style: { color: "#fff" } },
+  cardActionBtn: {
+    width: "100%",
+    height: "100%",
+    borderColor: "#fff",
+    color: "#fff",
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)"
+    }
+  },
+
+  btnDiv: {
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis"
+  }
+};
