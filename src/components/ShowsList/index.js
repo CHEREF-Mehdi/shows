@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Button } from "@material-ui/core";
+import Popover from "@material-ui/core/Popover";
 import Grid from "@material-ui/core/Grid";
 import ShowListItem from "../ShowListItem";
 import useStyles from "./styles";
@@ -11,6 +12,13 @@ function App() {
   const [shows, setShows] = React.useState(undefined);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   React.useEffect(() => {
     getShows();
@@ -56,8 +64,38 @@ function App() {
     <Container className={classes.root}>
       <Grid container justify="center" spacing={2}>
         {shows.map((item, id) => (
-          <ShowListItem key={id} item={item}></ShowListItem>
+          <ShowListItem
+            key={id}
+            item={item}
+            setAnchorEl={setAnchorEl}
+          ></ShowListItem>
         ))}
+
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper
+          }}
+          open={open}
+          anchorEl={anchorEl ? anchorEl.target : anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left"
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <div
+            dangerouslySetInnerHTML={{
+              __html: anchorEl ? anchorEl.text : null
+            }}
+          ></div>
+        </Popover>
       </Grid>
     </Container>
   );

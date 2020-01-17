@@ -4,16 +4,25 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "./styles";
+import { useStyles, styles } from "./styles";
 import { defaultAvatar } from "../../config/consts";
 import { formatPremieredDate, scoreToColor } from "../../config/helpers";
 import { useHistory } from "react-router-dom";
 
-function ShowListItem({ item }) {
+function ShowListItem({ item, setAnchorEl }) {
   const classes = useStyles();
   const history = useHistory();
+
+  const handlePopoverOpen = event => {
+    setAnchorEl({
+      target: event.currentTarget,
+      text: item.show.summary ? item.show.summary : "No summary available!!"
+    });
+  };
 
   return (
     <Grid item>
@@ -23,7 +32,7 @@ function ShowListItem({ item }) {
             <Avatar
               aria-label="recipe"
               style={{
-                backgroundColor: scoreToColor(item.score)
+                backgroundColor: scoreToColor(parseInt(item.score))
               }}
             >
               <div className={classes.evaluation}>
@@ -31,9 +40,19 @@ function ShowListItem({ item }) {
               </div>
             </Avatar>
           }
-          subheaderTypographyProps={{ style: { color: "#fff" } }}
-          titleTypographyProps={{ style: { color: "#fff" } }}
+          action={
+            <IconButton
+              style={styles.wightColor.style}
+              size="small"
+              aria-label="settings"
+              onClick={handlePopoverOpen}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          }
+          titleTypographyProps={styles.wightColor}
           title={item.show.type}
+          subheaderTypographyProps={styles.wightColor}
           subheader={formatPremieredDate(item.show.premiered)}
         />
 
@@ -50,12 +69,14 @@ function ShowListItem({ item }) {
         <CardActions className={classes.action} disableSpacing>
           <Button
             size="small"
-            style={{ color: "#fff" }}
+            variant="outlined"
+            color="primary"
+            style={styles.cardActionBtn}
             onClick={() => {
               history.push("/show/" + item.show.id, item);
             }}
           >
-            {item.show.name}
+            <div style={styles.btnDiv}>{item.show.name}</div>
           </Button>
         </CardActions>
       </Card>
