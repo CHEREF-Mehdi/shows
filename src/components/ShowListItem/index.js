@@ -53,7 +53,7 @@ function ShowListItem({ item, setAnchorEl }) {
           titleTypographyProps={styles.wightColor}
           title={item.show.type}
           subheaderTypographyProps={styles.wightColor}
-          subheader={formatPremieredDate(item.show.premiered)}
+          subheader={formatPremieredDate(item.show.premiered, true)}
         />
 
         <CardContent

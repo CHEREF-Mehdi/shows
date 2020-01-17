@@ -3,8 +3,10 @@ import { grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: 50,
-    background: grey[200]
+    paddingTop: 50,
+    paddingBottom: 50,
+    background: grey[200],
+    minHeight: "80vh"
   },
   paper: {
     padding: theme.spacing(1),

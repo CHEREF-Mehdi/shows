@@ -1,12 +1,12 @@
 import { months } from "./consts";
 import { red, lightGreen, yellow } from "@material-ui/core/colors";
 
-export function formatPremieredDate(premieredDate) {
+export function formatPremieredDate(premieredDate, yearOnly) {
   const date = premieredDate
     .split("-")
     .map((item, index) => (index === 1 ? parseInt(item) - 1 : item));
   const [year, month, day] = date;
-  return months[month] + " " + day + ", " + year;
+  return yearOnly ? year : months[month] + " " + day + ", " + year;
 }
 
 export function scoreToColor(score) {
