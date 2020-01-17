@@ -1,16 +1,17 @@
 export const months = [
-  "January",
-  "February",
-  "March",
-  "April",
+  "Jan.",
+  "Feb.",
+  "Mar.",
+  "Apr.",
   "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
+  "Jun.",
+  "Jul.",
+  "Aug.",
+  "Sep.",
+  "Oct.",
+  "Nov.",
+  "Dec."
 ];
 
-export const defaultAvatar = "https://archive.org/download/no-photo-available/no-photo-available.png";
+export const defaultAvatar =
+  "https://archive.org/download/no-photo-available/no-photo-available.png";
