@@ -7,7 +7,7 @@ import useStyles from "./styles";
 import { fetchShows } from "../../config/api";
 import Loader from "../Loader";
 
-function App() {
+function App(props) {
   const classes = useStyles();
   const [shows, setShows] = React.useState(undefined);
   const [loading, setLoading] = React.useState(true);
@@ -63,13 +63,30 @@ function App() {
   return (
     <Container className={classes.root}>
       <Grid container justify="center" spacing={2}>
-        {shows.map((item, id) => (
-          <ShowListItem
-            key={id}
-            item={item}
-            setAnchorEl={setAnchorEl}
-          ></ShowListItem>
-        ))}
+        {shows.map((item, id) => {
+          const filter = props.useFilter;
+
+          if (!filter) {
+            return (
+              <ShowListItem
+                key={id}
+                item={item}
+                setAnchorEl={setAnchorEl}
+              ></ShowListItem>
+            );
+          } else {
+            const name = item.show.name.toLowerCase();
+            if (name.includes(filter)) {
+              return (
+                <ShowListItem
+                  key={id}
+                  item={item}
+                  setAnchorEl={setAnchorEl}
+                ></ShowListItem>
+              );
+            }
+          }
+        })}
 
         <Popover
           id="mouse-over-popover"

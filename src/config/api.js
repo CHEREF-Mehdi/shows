@@ -8,3 +8,12 @@ export async function fetchShows() {
     throw error;
   }
 }
+
+export async function fetchEpisode(url) {
+  try {
+    const res = await fetch(url);
+    return await res.json();
+  } catch (error) {
+    throw error;
+  }
+}
