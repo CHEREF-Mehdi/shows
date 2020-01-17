@@ -1,7 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { blueGrey } from "@material-ui/core/colors";
+import { blueGrey, grey } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    backgroundColor: grey[200],
+    paddingTop: 30,
+    paddingBottom: 30,
+    width: "100%",
+    minHeight: "80vh"
+  },
   card: {
     display: "flex"
   },

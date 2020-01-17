@@ -69,7 +69,7 @@ function ShowDetail() {
   function typography(variant, item, value) {
     return (
       <Typography variant={variant} color="textSecondary">
-        {item + value}
+        <Typography variant={"overline"}>{item}</Typography> {value}
       </Typography>
     );
   }
@@ -103,95 +103,91 @@ function ShowDetail() {
   }
 
   return (
-    <>
-      <Container
-        style={{
-          backgroundColor: grey[200],
-          paddingTop: 30,
-          paddingBottom: 30,
-          width: "100%",
-          height: "80vh"
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cover}
-                image={show.show.image ? show.show.image.original : defaultAvatar}
-                title="Live from space album cover"
-              />
-              <div className={classes.details}>
-                <CardHeader
-                  action={
-                    <Avatar
-                      aria-label="recipe"
-                      style={{
-                        backgroundColor: scoreToColor(parseInt(show.score)),
-                        marginTop: 10,
-                        marginLeft: 20,
-                        marginRight: 10
-                      }}
-                    >
-                      <div className={classes.evaluation}>{show.show ? parseInt(show.score) / 2 : 0}/10</div>
-                    </Avatar>
-                  }
-                  title={show.show.name}
-                />
-                <CardContent className={classes.content}>
-                  {typography("subtitle1", "Type : ", show.show.type)}
-                  {typography("subtitle2", "Premiered : ", formatPremieredDate(show.show.premiered, false))}
-                  {typography("subtitle2", "Language : ", show.show.language, false)}
-                  {typography("subtitle2", "Status : ", show.show.status)}
-                  {typography(
-                    "subtitle2",
-                    "Schedule : ",
-                    show.show.schedule.days.join(",") + " at " + show.show.schedule.time
-                  )}
-                  {typography(
-                    "subtitle2",
-                    "Network name : ",
-                    show.show.network ? show.show.network.name : "No Information"
-                  )}
-                  {typography(
-                    "subtitle2",
-                    "Country : ",
-                    show.show.network ? show.show.network.country.name : "No Information"
-                  )}
-                  {typography(
-                    "subtitle2",
-                    "Time zone : ",
-                    show.show.network ? show.show.network.country.timezone : "No Information"
-                  )}
-                </CardContent>
-
-                <div className={classes.controls}>
-                  {controlButton("previousepisode")}
-                  {controlButton("self")}
-                  {controlButton("nextepisode")}
-                </div>
-              </div>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card className={classes.card}>
-              <div style={{ overflow: "auto" }} className={classes.cover}>
-                <CardHeader title="Summary" />
-                <CardContent className={classes.content}>
-                  <Typography
-                    variant="subtitle1"
-                    color="textSecondary"
-                    dangerouslySetInnerHTML={{
-                      __html: show.show.summary
+    <Container
+      style={{
+        backgroundColor: grey[200],
+        paddingTop: 30,
+        paddingBottom: 30,
+        width: "100%",
+        minHeight: "80vh"
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs="12">
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.cover}
+              image={show.show.image ? show.show.image.original : defaultAvatar}
+              title="Live from space album cover"
+            />
+            <div className={classes.details}>
+              <CardHeader
+                action={
+                  <Avatar
+                    aria-label="recipe"
+                    style={{
+                      backgroundColor: scoreToColor(parseInt(show.score)),
+                      marginTop: 10,
+                      marginLeft: 20,
+                      marginRight: 10
                     }}
-                  ></Typography>
-                </CardContent>
+                  >
+                    <div className={classes.evaluation}>{show.show ? parseInt(show.score) / 2 : 0}/10</div>
+                  </Avatar>
+                }
+                title={show.show.name}
+              />
+              <CardContent className={classes.content}>
+                {typography("subtitle1", "Type : ", show.show.type)}
+                {typography("subtitle2", "Premiered : ", formatPremieredDate(show.show.premiered, false))}
+                {typography("subtitle2", "Language : ", show.show.language, false)}
+                {typography("subtitle2", "Status : ", show.show.status)}
+                {typography(
+                  "subtitle2",
+                  "Schedule : ",
+                  show.show.schedule.days.join(",") + " at " + show.show.schedule.time
+                )}
+                {typography(
+                  "subtitle2",
+                  "Network name : ",
+                  show.show.network ? show.show.network.name : "No Information"
+                )}
+                {typography(
+                  "subtitle2",
+                  "Country : ",
+                  show.show.network ? show.show.network.country.name : "No Information"
+                )}
+                {typography(
+                  "subtitle2",
+                  "Time zone : ",
+                  show.show.network ? show.show.network.country.timezone : "No Information"
+                )}
+              </CardContent>
+
+              <div className={classes.controls}>
+                {controlButton("previousepisode")}
+                {controlButton("self")}
+                {controlButton("nextepisode")}
               </div>
-            </Card>
-          </Grid>
+            </div>
+          </Card>
         </Grid>
-      </Container>
-    </>
+        <Grid item xs="12">
+          <Card>
+            <CardHeader title="Summary" />
+            <CardContent className={classes.content}>
+              <Typography
+                variant="subtitle1"
+                color="textSecondary"
+                dangerouslySetInnerHTML={{
+                  __html: show.show.summary
+                }}
+              ></Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
