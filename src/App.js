@@ -1,47 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Container } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import GridShow from "./components/GridShow";
+import React from "react";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: 50
-  }
-}));
+import Header from "./components/Header";
+import ShowsList from "./components/ShowsList";
+
+import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
+import ShowDetail from "./components/ShowDetail";
 
 function App() {
-  const classes = useStyles();
-  const [shows, setShows] = useState([]);
+  return (
+    <Router>
+      <Header />
+      <div style={{ minHeight: "90vh" }}>
+        <Switch>
+          <Route exact path="/">
+            <ShowsList />
+          </Route>
+          <Route exact path="/show/:showId">
+            <ShowDetail />
+          </Route>
 
-  useEffect(() => {
-    fetch("https://api.tvmaze.com/search/shows?q=test")
-      .then(response => response.json())
-      .then(data => {
-        setShows(data);
-      });
-  }, []);
-
-  if (shows.length === 0)
-    return (
-      <div className={classes.root}>
-        <Grid container justify="center">
-          Pas de show disponible pour l'instant.
-        </Grid>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
       </div>
-    );
-  else
-    return (
-      <div className="App">
-        <Header title="Shows"></Header>
-        <Container>
-          <GridShow shows={shows}></GridShow>
-        </Container>
-        <Footer></Footer>
-      </div>
-    );
+      <Footer />
+    </Router>
+  );
 }
 
 export default App;
