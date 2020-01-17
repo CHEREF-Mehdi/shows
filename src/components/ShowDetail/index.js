@@ -113,7 +113,7 @@ function ShowDetail() {
           height: "80vh"
         }}
       >
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item>
             <Card className={classes.card}>
               <CardMedia
@@ -141,7 +141,7 @@ function ShowDetail() {
                 <CardContent className={classes.content}>
                   {typography("subtitle1", "Type : ", show.show.type)}
                   {typography("subtitle2", "Premiered : ", formatPremieredDate(show.show.premiered, false))}
-                  {typography("subtitle2", "Language : ", "show.show.language", false)}
+                  {typography("subtitle2", "Language : ", show.show.language, false)}
                   {typography("subtitle2", "Status : ", show.show.status)}
                   {typography(
                     "subtitle2",
