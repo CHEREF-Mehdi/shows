@@ -44,9 +44,19 @@ function App(props) {
   }
   if (error) {
     return (
-      <Button onClick={getShows} variant="contained" color="secondary">
-        Retry
-      </Button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "80vh"
+        }}
+      >
+        <Button onClick={getShows} variant="contained" color="secondary">
+          Retry
+        </Button>
+      </div>
     );
   }
 
@@ -67,11 +77,23 @@ function App(props) {
           const filter = props.useFilter;
 
           if (!filter) {
-            return <ShowListItem key={index} item={item} setAnchorEl={setAnchorEl}></ShowListItem>;
+            return (
+              <ShowListItem
+                key={index}
+                item={item}
+                setAnchorEl={setAnchorEl}
+              ></ShowListItem>
+            );
           } else {
             const name = item.show.name.toLowerCase();
             if (name.includes(filter)) {
-              return <ShowListItem key={index} item={item} setAnchorEl={setAnchorEl}></ShowListItem>;
+              return (
+                <ShowListItem
+                  key={index}
+                  item={item}
+                  setAnchorEl={setAnchorEl}
+                ></ShowListItem>
+              );
             }
           }
           return null;

@@ -1,7 +1,14 @@
 import React from "react";
 import { fetchShows } from "../../config/api";
 import Loader from "../Loader";
-import { Button, Container, Grid, Typography, CardHeader, Avatar } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  Grid,
+  Typography,
+  CardHeader,
+  Avatar
+} from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { grey } from "@material-ui/core/colors";
 import { defaultAvatar } from "../../config/consts";
@@ -16,6 +23,7 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import useStyles from "./styles";
+
 function ShowDetail() {
   const location = useLocation();
   const classes = useStyles();
@@ -25,6 +33,7 @@ function ShowDetail() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [episodes, setEpisodes] = React.useState(null);
+
   const getShows = React.useCallback(() => {
     setLoading(true);
     setError(false);
@@ -32,7 +41,9 @@ function ShowDetail() {
     fetchShows()
       .then(shows => {
         // eslint-disable-next-line eqeqeq
-        const show = shows.find(item => item.show.id == location.pathname.split("/")[2]);
+        const show = shows.find(
+          item => item.show.id == location.pathname.split("/")[2]
+        );
         getEpisodes(show.show._links);
         setShow(show);
       })
@@ -43,6 +54,7 @@ function ShowDetail() {
         setLoading(false);
       });
   }, [location.pathname]);
+
   React.useEffect(() => {
     if (!show) getShows();
     else {
@@ -60,7 +72,7 @@ function ShowDetail() {
           ep[item] = s;
         })
         .catch(err => {
-          throw err;
+          setError(true);
         });
     });
     setEpisodes(ep);
@@ -69,7 +81,7 @@ function ShowDetail() {
   function typography(variant, item, value) {
     return (
       <Typography variant={variant} color="textSecondary">
-        <Typography variant={"overline"}>{item}</Typography> {value}
+        {item + value}
       </Typography>
     );
   }
@@ -78,7 +90,9 @@ function ShowDetail() {
     return (
       <IconButton
         disabled={episodes[index] ? true : false}
-        onClick={() => (episodes[index] ? window.open(episodes[index].url, "_blank") : null)}
+        onClick={() =>
+          episodes[index] ? window.open(episodes[index].url, "_blank") : null
+        }
       >
         {index === "previousepisode" ? (
           <SkipPreviousIcon />
@@ -96,98 +110,115 @@ function ShowDetail() {
   }
   if (error) {
     return (
-      <Button onClick={getShows} variant="contained" color="secondary">
-        Retry
-      </Button>
+      <div className={classes.errorDiv}>
+        <Button onClick={getShows} variant="contained" color="secondary">
+          Retry
+        </Button>
+      </div>
     );
   }
 
   return (
-    <Container
-      style={{
-        backgroundColor: grey[200],
-        paddingTop: 30,
-        paddingBottom: 30,
-        width: "100%",
-        minHeight: "80vh"
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs="12">
-          <Card className={classes.card}>
-            <CardMedia
-              className={classes.cover}
-              image={show.show.image ? show.show.image.original : defaultAvatar}
-              title="Live from space album cover"
-            />
-            <div className={classes.details}>
-              <CardHeader
-                action={
-                  <Avatar
-                    aria-label="recipe"
-                    style={{
-                      backgroundColor: scoreToColor(parseInt(show.score)),
-                      marginTop: 10,
-                      marginLeft: 20,
-                      marginRight: 10
-                    }}
-                  >
-                    <div className={classes.evaluation}>{show.show ? parseInt(show.score) / 2 : 0}/10</div>
-                  </Avatar>
+    <>
+      <Container className={classes.container}>
+        <Grid container spacing={1}>
+          <Grid item>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.cover}
+                image={
+                  show.show.image ? show.show.image.original : defaultAvatar
                 }
-                title={show.show.name}
+                title="Live from space album cover"
               />
-              <CardContent className={classes.content}>
-                {typography("subtitle1", "Type : ", show.show.type)}
-                {typography("subtitle2", "Premiered : ", formatPremieredDate(show.show.premiered, false))}
-                {typography("subtitle2", "Language : ", show.show.language, false)}
-                {typography("subtitle2", "Status : ", show.show.status)}
-                {typography(
-                  "subtitle2",
-                  "Schedule : ",
-                  show.show.schedule.days.join(",") + " at " + show.show.schedule.time
-                )}
-                {typography(
-                  "subtitle2",
-                  "Network name : ",
-                  show.show.network ? show.show.network.name : "No Information"
-                )}
-                {typography(
-                  "subtitle2",
-                  "Country : ",
-                  show.show.network ? show.show.network.country.name : "No Information"
-                )}
-                {typography(
-                  "subtitle2",
-                  "Time zone : ",
-                  show.show.network ? show.show.network.country.timezone : "No Information"
-                )}
-              </CardContent>
+              <div className={classes.details}>
+                <CardHeader
+                  action={
+                    <Avatar
+                      aria-label="recipe"
+                      style={{
+                        backgroundColor: scoreToColor(parseInt(show.score))
+                      }}
+                      className={classes.avatar}
+                    >
+                      <div className={classes.evaluation}>
+                        {show.show ? parseInt(show.score) / 2 : 0}/10
+                      </div>
+                    </Avatar>
+                  }
+                  title={show.show.name}
+                />
+                <CardContent className={classes.content}>
+                  {typography("subtitle1", "Type : ", show.show.type)}
+                  {typography(
+                    "subtitle2",
+                    "Premiered : ",
+                    formatPremieredDate(show.show.premiered, false)
+                  )}
+                  {typography(
+                    "subtitle2",
+                    "Language : ",
+                    show.show.language,
+                    false
+                  )}
+                  {typography("subtitle2", "Status : ", show.show.status)}
+                  {typography(
+                    "subtitle2",
+                    "Schedule : ",
+                    show.show.schedule.days.join(",") +
+                      " at " +
+                      show.show.schedule.time
+                  )}
+                  {typography(
+                    "subtitle2",
+                    "Network name : ",
+                    show.show.network
+                      ? show.show.network.name
+                      : "No Information"
+                  )}
+                  {typography(
+                    "subtitle2",
+                    "Country : ",
+                    show.show.network
+                      ? show.show.network.country.name
+                      : "No Information"
+                  )}
+                  {typography(
+                    "subtitle2",
+                    "Time zone : ",
+                    show.show.network
+                      ? show.show.network.country.timezone
+                      : "No Information"
+                  )}
+                </CardContent>
 
-              <div className={classes.controls}>
-                {controlButton("previousepisode")}
-                {controlButton("self")}
-                {controlButton("nextepisode")}
+                <div className={classes.controls}>
+                  {controlButton("previousepisode")}
+                  {controlButton("self")}
+                  {controlButton("nextepisode")}
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </Grid>
+          <Grid xs={6} item>
+            <Card className={classes.summary}>
+              <div clessName={classes.secondDiv}>
+                <CardHeader title="Summary" />
+                <CardContent className={classes.content}>
+                  <Typography
+                    variant="subtitle1"
+                    color="textSecondary"
+                    dangerouslySetInnerHTML={{
+                      __html: show.show.summary
+                    }}
+                  ></Typography>
+                </CardContent>
+              </div>
+            </Card>
+          </Grid>
         </Grid>
-        <Grid item xs="12">
-          <Card>
-            <CardHeader title="Summary" />
-            <CardContent className={classes.content}>
-              <Typography
-                variant="subtitle1"
-                color="textSecondary"
-                dangerouslySetInnerHTML={{
-                  __html: show.show.summary
-                }}
-              ></Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 }
 

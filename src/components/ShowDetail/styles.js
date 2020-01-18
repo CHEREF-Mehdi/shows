@@ -7,10 +7,17 @@ const useStyles = makeStyles(theme => ({
     paddingTop: 30,
     paddingBottom: 30,
     width: "100%",
-    minHeight: "80vh"
+    minHeight: "80vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   },
   card: {
     display: "flex"
+  },
+  summary: {
+    display: "flex",
+    width: "100%"
   },
   details: {
     display: "flex",
@@ -34,7 +41,20 @@ const useStyles = makeStyles(theme => ({
     height: 38,
     width: 38
   },
-  evaluation: { fontSize: 11, color: blueGrey[900] }
+  evaluation: { fontSize: 11, color: blueGrey[900] },
+  errorDiv: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "80vh"
+  },
+  avatar: {
+    marginTop: 10,
+    marginLeft: 100,
+    marginRight: 10
+  },
+  secondDiv: { overflow: "auto" }
 }));
 
 export default useStyles;
