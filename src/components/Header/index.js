@@ -27,7 +27,7 @@ export default props => {
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="static">
         <Toolbar>
-          <Typography className={classes.title} />
+          <Typography className={classes.title}>Shows</Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
