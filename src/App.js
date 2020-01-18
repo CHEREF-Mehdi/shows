@@ -9,14 +9,14 @@ import NotFound from "./components/NotFound";
 import ShowDetail from "./components/ShowDetail";
 
 function App() {
-  const [useFilter, setUseFilter] = React.useState(null);
+  const [showsFilter, setShowsFilter] = React.useState(null);
   return (
     <Router>
-      <Header setUseFilter={setUseFilter} />
+      <Header setShowsFilter={setShowsFilter} />
       <div style={{ minHeight: "80vh" }}>
         <Switch>
           <Route exact path="/">
-            <ShowsList useFilter={useFilter} />
+            <ShowsList useFilter={showsFilter} />
           </Route>
           <Route exact path="/show/:showId">
             <ShowDetail />
