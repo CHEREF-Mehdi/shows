@@ -10,7 +10,6 @@ import {
   Avatar
 } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
-import { grey } from "@material-ui/core/colors";
 import { defaultAvatar } from "../../config/consts";
 import { formatPremieredDate, scoreToColor } from "../../config/helpers";
 import { fetchEpisode } from "../../config/api";
@@ -42,7 +41,7 @@ function ShowDetail() {
       .then(shows => {
         // eslint-disable-next-line eqeqeq
         const show = shows.find(
-          item => item.show.id == location.pathname.split("/")[2]
+          item => item.show.id === location.pathname.split("/")[2]
         );
         getEpisodes(show.show._links);
         setShow(show);
@@ -202,7 +201,7 @@ function ShowDetail() {
           </Grid>
           <Grid xs={6} item>
             <Card className={classes.summary}>
-              <div clessName={classes.secondDiv}>
+              <div className={classes.secondDiv}>
                 <CardHeader title="Summary" />
                 <CardContent className={classes.content}>
                   <Typography

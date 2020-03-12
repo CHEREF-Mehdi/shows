@@ -18,7 +18,7 @@ function NotFoundPage() {
 
   return (
     <div className={classes.root}>
-      <img src={notFoundImage} />
+      <img alt="" src={notFoundImage} />
       <p className={classes.text}>
         <Link to="/">Go to Home </Link>
       </p>
