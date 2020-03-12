@@ -18,7 +18,7 @@ export default function Footer() {
       <Container maxWidth="md">
         <Toolbar>
           <Typography variant="body1" color="inherit">
-            &copy; 2019 Nobo
+            &copy; 2020 CHEREF Mehdi
           </Typography>
         </Toolbar>
       </Container>
